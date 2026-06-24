@@ -568,7 +568,12 @@ document.addEventListener('touchend', e => {
   move(Math.abs(dx) > Math.abs(dy) ? (dx<0?0:2) : (dy<0?1:3));
 });
 
-document.getElementById('btn-new').addEventListener('click', newGame);
+document.getElementById('btn-new').addEventListener('click', () => {
+  nameScreen.style.display = 'flex';
+  nameScreen.style.opacity = '1';
+  nameInput.value = '';
+  nameInput.focus();
+});
 document.getElementById('btn-retry').addEventListener('click', newGame);
 document.getElementById('btn-undo').addEventListener('click', undoMove);
 
@@ -669,14 +674,9 @@ function startWithName() {
 nameStart.addEventListener('click', startWithName);
 nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') startWithName(); });
 
-// If returning player, skip name screen
-if (currentPlayer) {
-  playerName.textContent = currentPlayer;
-  nameScreen.style.display = 'none';
-  newGame();
-} else {
-  nameInput.focus();
-}
+// Always ask for name on every new game
+nameInput.value = '';
+nameInput.focus();
 
 
 </script>
